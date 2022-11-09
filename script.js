@@ -104,3 +104,11 @@ sliderImages[currentIndex].classList.add('active');
 
 nextBtn.addEventListener('click', nextSlide);
 prevBtn.addEventListener('click', prevSlide);
+
+let autoplay = setInterval(nextSlide, 3000);
+itemsContainer.addEventListener('mouseenter', function() {
+    clearInterval(autoplay);
+});
+itemsContainer.addEventListener('mouseleave', function() {
+    autoplay = setInterval(nextSlide, 3000);
+});
