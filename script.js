@@ -21,8 +21,46 @@ const images = [
         text: 'Marvel\'s Avengers is an epic, third-person, action-adventure game that combines an original, cinematic story with single-player and co-operative gameplay.',
     }
 ];
+/*------------------------
+    FUNCTIONS
+-------------------------*/
+function setSliderIndex() {
+    img.src = `css/${images[sliderIndex].image}`;
+    img.alt = `${images[sliderIndex].title}`;
+    info.innerHTML = `
+    <h3>${images[sliderIndex].title}</h3>
+    <p>${images[sliderIndex].text}</p>`;
+}
+
+function nextSlide() {
+    sliderImages[sliderIndex].classList.remove("active");
+    if( sliderIndex === images.length - 1 ) {
+        sliderIndex = 0;
+        setSliderIndex();
+    } else {
+        sliderIndex++;
+        setSliderIndex();
+    }
+    sliderImages[sliderIndex].classList.add("active");
+}
+
+function prevSlide() {
+    sliderImages[sliderIndex].classList.remove("active");
+    if( sliderIndex === 0 ) {
+        sliderIndex = images.length - 1;
+        setSliderIndex();
+    } else {
+        sliderIndex--;
+        setSliderIndex();
+    }
+    sliderImages[sliderIndex].classList.add("active");
+    
+}
 
 /*-------------------------*/
+let sliderIndex = 0;
+let currentIndex = sliderIndex;
+
 // CONTENITORE
 const itemsContainer = document.querySelector('.items-container');
 const item = document.createElement('div');
@@ -30,15 +68,11 @@ item.classList.add('item');
 itemsContainer.append(item);
 
 // IMMAGINE
-let sliderIndex = 0;
-let currentIndex = sliderIndex;
-
 const img = document.createElement('img');
 img.src = `css/${images[currentIndex].image}`;
 img.alt = `${images[currentIndex].title}`;
 item.append(img);
 
-console.log(images[currentIndex].title);
 // DESCRIZIONE
 const info = document.createElement('div');
 info.classList.add('product-info');
@@ -67,5 +101,7 @@ for (let i = 1; i < 6; i++) {
     slider.append(sliderImg);
     sliderImages.push(sliderImg);
 };
-console.log(sliderImages[currentIndex])
-sliderImages[currentIndex].classList.add('active')
+sliderImages[currentIndex].classList.add('active');
+
+nextBtn.addEventListener('click', nextSlide);
+prevBtn.addEventListener('click', prevSlide);
