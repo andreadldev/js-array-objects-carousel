@@ -44,3 +44,44 @@ function prevSlide() {
     }
     items[currentImageIndex].classList.add("active");
 }
+
+/*-------------------------*/
+// CONTENITORE
+const itemsContainer = document.querySelector('.items-container');
+const item = document.createElement('div');
+item.classList.add('item');
+itemsContainer.append(item);
+
+// IMMAGINE
+let currentImage = 1;
+const img = document.createElement('img');
+img.src = `css/img/0${currentImage}.webp`;
+img.alt = "Marvel\'s Spiderman Miles Morales"
+item.append(img);
+
+// DESCRIZIONE
+const info = document.createElement('div');
+info.classList.add('product-info');
+info.innerHTML = `
+<h3>Marvel's Spiderman Miles Morales</h3>
+<p>Experience the rise of Miles Morales as the new hero masters incredible, explosive new powers to become his own Spider-man.</p>`;
+item.append(info);
+
+// SLIDER
+const slider = document.createElement('div');
+slider.classList.add('slider');
+itemsContainer.append(slider);
+
+const prevBtn = document.createElement('div');
+prevBtn.classList.add('prev');
+slider.append(prevBtn);
+const nextBtn = document.createElement('div');
+nextBtn.classList.add('next');
+slider.append(nextBtn);
+
+for (let i = 1; i < 6; i++) {
+    const sliderImg = document.createElement('img');
+    sliderImg.src = `css/img/0${i}.webp`;
+    sliderImg.alt = "...";
+    slider.append(sliderImg);
+};
