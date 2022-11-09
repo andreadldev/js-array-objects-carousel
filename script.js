@@ -22,29 +22,6 @@ const images = [
     }
 ];
 
-/*------------------------
-    FUNCTIONS
--------------------------*/
-function nextSlide() {
-    items[currentImageIndex].classList.remove("active");
-    if( currentImageIndex === images.length - 1 ) {
-        currentImageIndex = 0;
-    } else {
-        currentImageIndex++;
-    }
-    items[currentImageIndex].classList.add("active");
-}
-
-function prevSlide() {
-    items[currentImageIndex].classList.remove("active");
-    if( currentImageIndex === 0 ) {
-        currentImageIndex = images.length - 1;
-    } else {
-        currentImageIndex--;
-    }
-    items[currentImageIndex].classList.add("active");
-}
-
 /*-------------------------*/
 // CONTENITORE
 const itemsContainer = document.querySelector('.items-container');
@@ -53,18 +30,21 @@ item.classList.add('item');
 itemsContainer.append(item);
 
 // IMMAGINE
-let currentImage = 1;
+let sliderIndex = 0;
+let currentIndex = sliderIndex;
+
 const img = document.createElement('img');
-img.src = `css/img/0${currentImage}.webp`;
-img.alt = "Marvel\'s Spiderman Miles Morales"
+img.src = `css/${images[currentIndex].image}`;
+img.alt = `${images[currentIndex].title}`;
 item.append(img);
 
+console.log(images[currentIndex].title);
 // DESCRIZIONE
 const info = document.createElement('div');
 info.classList.add('product-info');
 info.innerHTML = `
-<h3>Marvel's Spiderman Miles Morales</h3>
-<p>Experience the rise of Miles Morales as the new hero masters incredible, explosive new powers to become his own Spider-man.</p>`;
+<h3>${images[currentIndex].title}</h3>
+<p>${images[currentIndex].text}</p>`;
 item.append(info);
 
 // SLIDER
@@ -79,9 +59,13 @@ const nextBtn = document.createElement('div');
 nextBtn.classList.add('next');
 slider.append(nextBtn);
 
+let sliderImages = [];
 for (let i = 1; i < 6; i++) {
     const sliderImg = document.createElement('img');
     sliderImg.src = `css/img/0${i}.webp`;
     sliderImg.alt = "...";
     slider.append(sliderImg);
+    sliderImages.push(sliderImg);
 };
+console.log(sliderImages[currentIndex])
+sliderImages[currentIndex].classList.add('active')
