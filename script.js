@@ -53,8 +53,23 @@ function prevSlide() {
         currentIndex--;
         setCurrentIndex()
     }
-    sliderImages[currentIndex].classList.add("active");
-    
+    sliderImages[currentIndex].classList.add("active");  
+}
+
+function stopTrue() {
+    clearInterval(autoplay);
+    stop = true;
+    stopAutoplay.innerHTML = "Play";
+}
+function stopFalse() {
+    clearInterval(autoplay);
+    if (reverse == false) {
+        autoplay = setInterval(nextSlide, 3000);
+    } else if (reverse == true) {
+        autoplay = setInterval(prevSlide, 3000);
+    }
+    stop = false;
+    stopAutoplay.innerHTML = "Stop";
 }
 
 /*-------------------------*/
@@ -105,10 +120,59 @@ sliderImages[currentIndex].classList.add('active');
 nextBtn.addEventListener('click', nextSlide);
 prevBtn.addEventListener('click', prevSlide);
 
+// AUTOPLAY
 let autoplay = setInterval(nextSlide, 3000);
+const buttonsContainer = document.createElement('div');
+document.querySelector('.container').append(buttonsContainer);
+let stop = false;
+let reverse = false;
+
 itemsContainer.addEventListener('mouseenter', function() {
     clearInterval(autoplay);
 });
 itemsContainer.addEventListener('mouseleave', function() {
-    autoplay = setInterval(nextSlide, 3000);
+    if (stop == false && reverse == false) {
+        autoplay = setInterval(nextSlide, 3000);
+    }
+    else if (stop == false && reverse == true) {
+        autoplay = setInterval(prevSlide, 3000);
+    }
 });
+
+// BOTTONI STOP/REVERSE AUTOPLAY
+const stopAutoplay = document.createElement('button');
+stopAutoplay.innerHTML = "Stop";
+stopAutoplay.addEventListener('click', function() {
+    if (stop == false) {
+    stopTrue();
+    }
+    else {stopFalse()}
+})
+
+const reverseAutoplay = document.createElement('button');
+reverseAutoplay.innerHTML = "Reverse";
+reverseAutoplay.addEventListener('click', function() {
+    if (reverse == false && stop == false) {
+        clearInterval(autoplay);
+        reverse = true;
+        autoplay = setInterval(prevSlide, 3000);
+        reverseAutoplay.innerHTML = "Forward";
+    }
+    else if (reverse == true && stop == false) {
+        reverse = false;
+        clearInterval(autoplay);
+        autoplay = setInterval(nextSlide, 3000);
+        reverseAutoplay.innerHTML = "Reverse";
+    }
+    else if (reverse == false && stop == true) {
+        reverse = true;
+        reverseAutoplay.innerHTML = "Forward";
+    }
+    else if (reverse == true && stop == true) {
+        reverse = false;
+        reverseAutoplay.innerHTML = "Reverse";
+    }
+})
+
+buttonsContainer.append(stopAutoplay);
+buttonsContainer.append(reverseAutoplay);
