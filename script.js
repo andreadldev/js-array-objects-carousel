@@ -24,42 +24,41 @@ const images = [
 /*------------------------
     FUNCTIONS
 -------------------------*/
-function setSliderIndex() {
-    img.src = `css/${images[sliderIndex].image}`;
-    img.alt = `${images[sliderIndex].title}`;
-    info.innerHTML = `
-    <h3>${images[sliderIndex].title}</h3>
-    <p>${images[sliderIndex].text}</p>`;
-}
+ function setCurrentIndex() {
+     img.src = `css/${images[currentIndex].image}`;
+     img.alt = `${images[currentIndex].title}`;
+     info.innerHTML = `
+     <h3>${images[currentIndex].title}</h3>
+     <p>${images[currentIndex].text}</p>`;
+ }
 
 function nextSlide() {
-    sliderImages[sliderIndex].classList.remove("active");
-    if( sliderIndex === images.length - 1 ) {
-        sliderIndex = 0;
-        setSliderIndex();
+    sliderImages[currentIndex].classList.remove("active");
+    if( currentIndex === images.length - 1 ) {
+        currentIndex = 0;
+        setCurrentIndex();
     } else {
-        sliderIndex++;
-        setSliderIndex();
+        currentIndex++;
+        setCurrentIndex()
     }
-    sliderImages[sliderIndex].classList.add("active");
+    sliderImages[currentIndex].classList.add("active");
 }
 
 function prevSlide() {
-    sliderImages[sliderIndex].classList.remove("active");
-    if( sliderIndex === 0 ) {
-        sliderIndex = images.length - 1;
-        setSliderIndex();
+    sliderImages[currentIndex].classList.remove("active");
+    if( currentIndex === 0 ) {
+        currentIndex = images.length - 1;
+        setCurrentIndex()
     } else {
-        sliderIndex--;
-        setSliderIndex();
+        currentIndex--;
+        setCurrentIndex()
     }
-    sliderImages[sliderIndex].classList.add("active");
+    sliderImages[currentIndex].classList.add("active");
     
 }
 
 /*-------------------------*/
-let sliderIndex = 0;
-let currentIndex = sliderIndex;
+let currentIndex = 0;
 
 // CONTENITORE
 const itemsContainer = document.querySelector('.items-container');
