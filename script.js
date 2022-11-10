@@ -108,7 +108,7 @@ nextBtn.classList.add('next');
 slider.append(nextBtn);
 
 let sliderImages = [];
-for (let i = 1; i < 6; i++) {
+for (let i = 1; i <= images.length; i++) {
     const sliderImg = document.createElement('img');
     sliderImg.src = `css/img/0${i}.webp`;
     sliderImg.alt = "...";
