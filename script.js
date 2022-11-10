@@ -114,6 +114,12 @@ for (let i = 1; i <= images.length; i++) {
     sliderImg.alt = "...";
     slider.append(sliderImg);
     sliderImages.push(sliderImg);
+    sliderImg.addEventListener('click', function() {
+        sliderImages[currentIndex].classList.remove("active");
+        currentIndex = i - 1;
+        setCurrentIndex();
+        sliderImages[currentIndex].classList.add("active");
+    })
 };
 sliderImages[currentIndex].classList.add('active');
 
